@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import '../styles/auth.css';
+import img from '../assets/login-img.jpg';
 
 export default function App() {
   const [isLogin, setIsLogin] = useState(true);
@@ -26,11 +27,7 @@ export default function App() {
     <div className="auth-container">
       {/* Image Section */}
       <div className="auth-image-section">
-        <img
-          src="https://images.unsplash.com/photo-1765896387387-0538bc9f997e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxudXJzZSUyMGVsZGVybHklMjBwYXRpZW50JTIwc3RhbmRpbmclMjBzbWlsaW5nJTIwaGVhbHRoY2FyZXxlbnwxfHx8fDE3NzYwNzY5MzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
-          alt="Caregiver and patient standing together happily"
-          className="auth-image"
-        />
+        <img src={img} alt="Healthcare" className="auth-image" />
         <div className="auth-image-overlay" />
         <div className="auth-image-content">
           <h2 className="auth-image-title">
