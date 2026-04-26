@@ -1,83 +1,119 @@
-import { useState } from 'react';
-import '../styles/auth.css';
-import img from '../assets/login-img.jpg';
+import { useState } from "react";
+import "../styles/auth.css";
+import { useLogin, useRegister } from "../hooks/authApi";
+import { useNavigate } from "react-router-dom";
 
-export default function App() {
+export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
+
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    fullName: '',
-    confirmPassword: ''
+    email: "",
+    password: "",
+    fullName: "",
+    confirmPassword: "",
   });
+
+  const navigate = useNavigate();
+
+  const loginMutation = useLogin();
+  const registerMutation = useRegister();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+
+    if (isLogin) {
+      loginMutation.mutate(
+        {
+          email: formData.email,
+          password: formData.password,
+        },
+        {
+          onSuccess: () => {
+            alert("Login successful ✅");
+            navigate("/dashboard");
+          },
+          onError: () => {
+            alert("Login failed ❌");
+          },
+        }
+      );
+    } else {
+      if (formData.password !== formData.confirmPassword) {
+        return alert("Passwords do not match ❌");
+      }
+
+      registerMutation.mutate(
+        {
+          fullName: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+        },
+        {
+          onSuccess: () => {
+            alert("Registration successful ✅");
+            setIsLogin(true);
+          },
+          onError: () => {
+            alert("Registration failed ❌");
+          },
+        }
+      );
+    }
   };
 
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   return (
     <div className="auth-container">
-      {/* Image Section */}
-      <div className="auth-image-section">
-        <img src={img} alt="Healthcare" className="auth-image" />
-        <div className="auth-image-overlay" />
-        <div className="auth-image-content">
-          <h2 className="auth-image-title">
-            Compassionate Care, Advanced Technology
-          </h2>
-          <p className="auth-image-subtitle">
-            Join our platform connecting healthcare providers and patients for better outcomes.
-          </p>
-        </div>
+
+      {/* 🔥 LEFT TEXT CONTENT */}
+      <div className="auth-image-content">
+        <h2 className="auth-image-title">
+          Compassionate Care, Advanced Technology
+        </h2>
+        <p className="auth-image-subtitle">
+          Join our platform connecting healthcare providers and patients for better outcomes.
+        </p>
       </div>
 
-      {/* Form Section */}
+      {/* 🔥 RIGHT FORM */}
       <div className="auth-form-section">
         <div className="auth-form-wrapper">
-          <div className="auth-header">
+
+          {/* <div className="auth-header">
             <h1 className="auth-title">MediCare Platform</h1>
             <p className="auth-description">
-              {isLogin ? 'Welcome back. Sign in to continue.' : 'Create your account to get started.'}
+              {isLogin
+                ? "Welcome back. Sign in to continue."
+                : "Create your account to get started."}
             </p>
-          </div>
+          </div> */}
 
-          <form
-            key={isLogin ? 'login' : 'signup'}
-            onSubmit={handleSubmit}
-            className="auth-form"
-          >
+          <form onSubmit={handleSubmit} className="auth-form">
+
             {!isLogin && (
               <div className="form-group">
-                <label htmlFor="fullName" className="form-label">
-                  Full Name
-                </label>
+                <label className="form-label">Full Name</label>
                 <input
                   type="text"
-                  id="fullName"
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleInputChange}
                   className="form-input"
-                  required={!isLogin}
+                  required
                 />
               </div>
             )}
 
             <div className="form-group">
-              <label htmlFor="email" className="form-label">
-                Email Address
-              </label>
+              <label className="form-label">Email Address</label>
               <input
                 type="email"
-                id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
@@ -87,12 +123,9 @@ export default function App() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
+              <label className="form-label">Password</label>
               <input
                 type="password"
-                id="password"
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
@@ -103,55 +136,37 @@ export default function App() {
 
             {!isLogin && (
               <div className="form-group">
-                <label htmlFor="confirmPassword" className="form-label">
-                  Confirm Password
-                </label>
+                <label className="form-label">Confirm Password</label>
                 <input
                   type="password"
-                  id="confirmPassword"
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
                   className="form-input"
-                  required={!isLogin}
+                  required
                 />
               </div>
             )}
 
-            {isLogin && (
-              <div className="form-options">
-                <label className="remember-me">
-                  <input type="checkbox" className="checkbox" />
-                  Remember me
-                </label>
-                <button type="button" className="forgot-password">
-                  Forgot password?
-                </button>
-              </div>
-            )}
-
             <button type="submit" className="submit-button">
-              {isLogin ? 'Sign In' : 'Create Account'}
+              {isLogin ? "Sign In" : "Create Account"}
             </button>
           </form>
 
           <div className="auth-toggle">
             <p className="toggle-text">
-              {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
+              {isLogin
+                ? "Don't have an account?"
+                : "Already have an account?"}{" "}
               <button
                 onClick={() => setIsLogin(!isLogin)}
                 className="toggle-button"
               >
-                {isLogin ? 'Sign up' : 'Sign in'}
+                {isLogin ? "Sign up" : "Sign in"}
               </button>
             </p>
           </div>
 
-          {!isLogin && (
-            <p className="terms-text">
-              By creating an account, you agree to our Terms of Service and Privacy Policy.
-            </p>
-          )}
         </div>
       </div>
     </div>

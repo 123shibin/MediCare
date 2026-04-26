@@ -1,256 +1,175 @@
-/* Auth Container */
+/* 🔥 RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 🚫 REMOVE SCROLLBAR ISSUE */
+html, body {
+  min-height: 100%;
+}
+
+/* 🔥 MAIN CONTAINER (FULL SCREEN BACKGROUND IMAGE) */
 .auth-container {
-  display: flex;
   min-height: 100vh;
-  width: 100%;   /* ✅ correct */
-}
-
-/* Image Section */
-.auth-image-section {
-  display: none;
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-  background-color: #f1f5f9;
-  animation: fadeInLeft 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-@media (min-width: 1024px) {
-  .auth-image-section {
-    display: flex;
-    /* width: 50%; */
-  }
-}
-
-.auth-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 2rem; /* ✅ important */
+
+  background: 
+    linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.65)),
+    url("../assets/Care.jpg") center/cover no-repeat;
+
+  padding: 3rem;
+
+  flex-wrap: wrap; /* ✅ THIS FIXES BREAKING */
 }
 
-.auth-image-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom right, rgba(30, 58, 138, 0.4), transparent, transparent);
-}
+/* ================= LEFT TEXT ================= */
 
 .auth-image-content {
-  position: absolute;
-  bottom: 3rem;
-  left: 3rem;
+  flex: 1; /* ✅ responsive width */
+  min-width: 280px; /* prevents collapse */
+
   color: white;
-  max-width: 28rem;
-  animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s backwards;
+  max-width: 500px;
 }
 
 .auth-image-title {
-  font-size: 1.875rem;
+  font-size: 3rem;
   font-weight: 700;
-  line-height: 2.25rem;
-  margin-bottom: 0.75rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
 }
 
 .auth-image-subtitle {
-  color: rgba(255, 255, 255, 0.9);
-  animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s backwards;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
 }
 
-/* Form Section */
+/* ================= FORM (GLASS UI) ================= */
+
 .auth-form-section {
   flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 1.5rem;
-  background-color: white;
+  justify-content: flex-end;
 }
 
 .auth-form-wrapper {
   width: 100%;
-  max-width: 28rem;
-  animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s backwards;
+  max-width: 380px; /* ✅ instead of fixed width */
+
+  padding: 3rem;
+
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+
+  border-radius: 16px;
 }
 
-/* Header */
-.auth-header {
-  margin-bottom: 2.5rem;
-}
+/* ================= TEXT ================= */
 
 .auth-title {
-  font-size: 2.25rem;
-  font-weight: 700;
-  line-height: 2.5rem;
-  margin-bottom: 0.75rem;
-  color: #0f172a;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
 .auth-description {
-  color: #475569;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
 }
 
-/* Form */
+/* ================= FORM ================= */
+
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
+  gap: 1.2rem;
 }
 
 .form-label {
-  display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: #334155;
+  color: white;
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
 }
 
 .form-input {
   width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  transition: all 0.2s ease-in-out;
+  padding: 0.7rem;
+
+  border-radius: 8px;
+  border: none;
+
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+
   outline: none;
-   box-sizing: border-box; /* 🔥 FIXES INPUT OVERFLOW */
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .form-input:focus {
-  border-color: transparent;
-  box-shadow: 0 0 0 2px #3b82f6;
+  background: rgba(255, 255, 255, 0.25);
 }
 
-/* Form Options */
-.form-options {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.875rem;
-}
+/* ================= BUTTON ================= */
 
-.remember-me {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #334155;
-  cursor: pointer;
-}
-
-.checkbox {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 0.25rem;
-  border: 1px solid #cbd5e1;
-  cursor: pointer;
-}
-
-.forgot-password {
-  color: #2563eb;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 0.875rem;
-  transition: color 0.2s;
-}
-
-.forgot-password:hover {
-  color: #1d4ed8;
-}
-
-/* Submit Button */
 .submit-button {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background-color: #2563eb;
-  color: white;
+  padding: 0.75rem;
+
+  border-radius: 8px;
   border: none;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  font-weight: 500;
+
+  background: #3b82f6;
+  color: white;
+
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: 0.2s;
 }
 
 .submit-button:hover {
-  background-color: #1d4ed8;
-  transform: scale(1.01);
+  background: #2563eb;
 }
 
-.submit-button:active {
-  transform: scale(0.99);
-}
+/* ================= FOOTER ================= */
 
-/* Toggle Section */
 .auth-toggle {
-  margin-top: 2rem;
   text-align: center;
-}
-
-.toggle-text {
-  color: #475569;
-  font-size: 0.875rem;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: white;
 }
 
 .toggle-button {
-  color: #2563eb;
-  background: none;
-  border: none;
+  color: #93c5fd;
   cursor: pointer;
-  font-weight: 500;
-  font-size: 0.875rem;
-  transition: color 0.2s;
+  border: none;
+  background: none;
 }
 
-.toggle-button:hover {
-  color: #1d4ed8;
-}
+/* ================= MOBILE ================= */
 
-/* Terms Text */
-.terms-text {
-  margin-top: 1.5rem;
-  font-size: 0.75rem;
-  color: #64748b;
-  text-align: center;
-  line-height: 1rem;
-}
-
-/* Animations */
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
+@media (max-width: 800px) {
+  .auth-container {
+    justify-content: center;
+    text-align: center;
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+  .auth-image-content {
+    display: none;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-/* Responsive */
-@media (max-width: 640px) {
   .auth-form-section {
-    padding: 2rem 1rem;
-  }
-
-  .auth-title {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
+    justify-content: center;
+    width: 50%;
   }
 }
