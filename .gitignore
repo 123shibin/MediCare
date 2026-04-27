@@ -12,19 +12,13 @@ node_modules/
 
 # Build output
 dist/
-dist-ssr/
 
 # Environment files
 .env
-.env.local
-.env.*.local
+.env.*
 
-# Local files
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
+# Editor files
+.vscode/
 .idea/
 
 # OS files
@@ -32,9 +26,4 @@ dist-ssr/
 Thumbs.db
 
 # Misc
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
 coverage/
