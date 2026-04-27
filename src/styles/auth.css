@@ -67,8 +67,6 @@ html, body {
   padding: 3rem;
 
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(16px);
-
   border-radius: 16px;
 }
 
