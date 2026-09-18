@@ -44,7 +44,7 @@ export default function Login() {
 
       registerMutation.mutate(
         {
-          fullName: formData.fullName,
+          fullname: formData.fullName,
           email: formData.email,
           password: formData.password,
         },
