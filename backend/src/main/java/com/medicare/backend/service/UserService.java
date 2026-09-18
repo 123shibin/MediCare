@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
 import com.medicare.backend.dto.RegisterRequest;
+import com.medicare.backend.dto.LoginRequest;
 import com.medicare.backend.models.User;
 import com.medicare.backend.repository.UserRepository;
 
@@ -21,5 +22,18 @@ public class UserService {
         user.setFullname(request.getFullname());
         user.setPassword(encoder.encode(request.getPassword()));
         repo.save(user);
+    }
+
+    public String login(LoginRequest request) {
+        User user = repo.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!encoder.matches(request.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Invalid password");
+        }
+
+        // Here you would generate a JWT token and return it
+        // For simplicity, we'll just return a placeholder string
+        return "JWT_TOKEN_PLACEHOLDER";
     }
 }

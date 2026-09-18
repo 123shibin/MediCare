@@ -9,7 +9,7 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: async (credentials) => {
-      const response = await api.post("auth/login", credentials);
+      const response = await api.post("/auth/login", credentials);
       return response.data;
     },
 
