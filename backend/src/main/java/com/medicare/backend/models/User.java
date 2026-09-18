@@ -24,11 +24,6 @@ public class User {
     private String fullname;
 
 
-    // public User(String email, String password, String fullname) {
-    //     this.email = email;
-    //     this.password = password;
-    //     this.fullname = fullname;
-    // }
 
     // getters & setters
     public Long getId() {
