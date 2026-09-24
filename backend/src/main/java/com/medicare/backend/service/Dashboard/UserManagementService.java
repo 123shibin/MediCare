@@ -7,11 +7,11 @@ import com.medicare.backend.repository.Daskboard.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserManagementService {
 
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserManagementService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

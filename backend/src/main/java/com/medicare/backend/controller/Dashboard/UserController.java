@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.medicare.backend.dto.userdto.AddUserRequest;
 import com.medicare.backend.models.dashboard.User;
-import com.medicare.backend.service.Dashboard.UserService;
+import com.medicare.backend.service.Dashboard.UserManagementService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    public final UserService userService;
+    public final UserManagementService userService;
     @PostMapping("/adduser")
     public ResponseEntity<?> addUser(@RequestBody AddUserRequest request) {
         User createdUser = userService.addUser(request);
