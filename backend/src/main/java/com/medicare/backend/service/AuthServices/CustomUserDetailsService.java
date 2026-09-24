@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
 import com.medicare.backend.models.register.User;
-import com.medicare.backend.repository.UserRepository;
+import com.medicare.backend.repository.Authentication.UserRepository;
 
 @RequiredArgsConstructor
 @Service
