@@ -1,4 +1,4 @@
-package com.medicare.backend.models;
+package com.medicare.backend.models.register;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

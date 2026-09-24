@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
-import com.medicare.backend.models.User;
+import com.medicare.backend.models.register.User;
 import com.medicare.backend.repository.UserRepository;
 
 @RequiredArgsConstructor

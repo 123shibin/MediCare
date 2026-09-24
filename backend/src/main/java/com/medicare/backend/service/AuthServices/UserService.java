@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 import com.medicare.backend.dto.Authdto.LoginRequest;
 import com.medicare.backend.dto.Authdto.RegisterRequest;
-import com.medicare.backend.models.User;
+import com.medicare.backend.models.register.User;
 import com.medicare.backend.repository.UserRepository;
 
 @Service
