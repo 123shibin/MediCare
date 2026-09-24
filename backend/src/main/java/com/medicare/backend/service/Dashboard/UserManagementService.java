@@ -2,16 +2,16 @@ package com.medicare.backend.service.Dashboard;
 
 import com.medicare.backend.dto.userdto.AddUserRequest;
 import com.medicare.backend.models.dashboard.User;
-import com.medicare.backend.repository.Daskboard.UserRepository;
+import com.medicare.backend.repository.Dashboard.UserManagementRepository;
 
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserManagementService {
 
-    private final UserRepository userRepository;
+    private final UserManagementRepository userRepository;
 
-    public UserManagementService(UserRepository userRepository) {
+    public UserManagementService(UserManagementRepository userRepository) {
         this.userRepository = userRepository;
     }
 

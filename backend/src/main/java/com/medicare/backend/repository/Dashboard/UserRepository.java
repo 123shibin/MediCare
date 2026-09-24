@@ -1,4 +1,4 @@
-package com.medicare.backend.repository.Daskboard;
+package com.medicare.backend.repository.Dashboard;
 
 import com.medicare.backend.models.dashboard.User;
 import org.springframework.data.jpa.repository.JpaRepository;
