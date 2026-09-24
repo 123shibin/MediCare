@@ -1,7 +1,7 @@
 package com.medicare.backend.service.Dashboard;
 
 import com.medicare.backend.dto.userdto.AddUserRequest;
-import com.medicare.backend.models.dashboard.User;
+import com.medicare.backend.models.dashboard.UserManagement;
 import com.medicare.backend.repository.Dashboard.UserManagementRepository;
 
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class UserManagementService {
         this.userRepository = userRepository;
     }
 
-    public User addUser(AddUserRequest request) {
+    public UserManagement addUser(AddUserRequest request) {
 
         // Check duplicate email
         if (userRepository.existsByEmail(request.getEmail())) {
@@ -23,7 +23,7 @@ public class UserManagementService {
         }
 
         // Create User entity
-        User user = new User();
+        UserManagement user = new UserManagement();
 
         user.setName(request.getName());
         user.setEmail(request.getEmail());

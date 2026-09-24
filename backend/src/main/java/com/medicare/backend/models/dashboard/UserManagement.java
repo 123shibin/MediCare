@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserManagement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,7 @@ public class User {
     private Integer patients = 0;
 
     // Default constructor
-    public User() {
+    public UserManagement() {
     }
 
     // Getters and Setters
