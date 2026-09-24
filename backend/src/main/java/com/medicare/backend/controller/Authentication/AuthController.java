@@ -1,4 +1,4 @@
-package com.medicare.backend.controller;
+package com.medicare.backend.controller.Authentication;
 
 import org.springframework.web.bind.annotation.RestController;  
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,13 +7,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.medicare.backend.dto.LoginRequest;
-import com.medicare.backend.dto.RegisterRequest;
+import com.medicare.backend.dto.Authdto.LoginRequest;
+import com.medicare.backend.dto.Authdto.LoginResponse;
+import com.medicare.backend.dto.Authdto.RegisterRequest;
 import com.medicare.backend.security.JwtUtil;
 import com.medicare.backend.service.AuthServices.UserService;
 
 import org.springframework.security.authentication.AuthenticationManager;
-import com.medicare.backend.dto.LoginResponse;
 
 import lombok.RequiredArgsConstructor;
 

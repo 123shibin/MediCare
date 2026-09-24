@@ -1,4 +1,4 @@
-package com.medicare.backend.dto;
+package com.medicare.backend.dto.Authdto;
 
 public class LoginResponse {
     private String accessToken;

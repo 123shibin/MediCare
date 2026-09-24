@@ -1,9 +1,10 @@
-package com.medicare.backend.dto;
+package com.medicare.backend.dto.Authdto;
 
 
-public class LoginRequest {
+public class RegisterRequest {
     private String email;
     private String password;
+    private String fullname;
     
     public String getEmail() {
         return email;
@@ -19,5 +20,13 @@ public class LoginRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 }

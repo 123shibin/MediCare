@@ -4,8 +4,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
-import com.medicare.backend.dto.RegisterRequest;
-import com.medicare.backend.dto.LoginRequest;
+import com.medicare.backend.dto.Authdto.LoginRequest;
+import com.medicare.backend.dto.Authdto.RegisterRequest;
 import com.medicare.backend.models.User;
 import com.medicare.backend.repository.UserRepository;
 
