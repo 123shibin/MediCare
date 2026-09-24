@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.medicare.backend.dto.LoginRequest;
 import com.medicare.backend.dto.RegisterRequest;
-import com.medicare.backend.service.UserService;
 import com.medicare.backend.security.JwtUtil;
+import com.medicare.backend.service.AuthServices.UserService;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import com.medicare.backend.dto.LoginResponse;
 

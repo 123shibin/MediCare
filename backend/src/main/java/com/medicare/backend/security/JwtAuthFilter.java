@@ -11,8 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.medicare.backend.service.CustomUserDetailsService;
 
+import com.medicare.backend.service.AuthServices.CustomUserDetailsService;
 
 import java.io.IOException;
 
