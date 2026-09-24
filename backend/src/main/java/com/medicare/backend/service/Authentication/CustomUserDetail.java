@@ -1,4 +1,4 @@
-package com.medicare.backend.service.AuthServices;
+package com.medicare.backend.service.Authentication;
 
 import java.util.Collection;
 import java.util.List;

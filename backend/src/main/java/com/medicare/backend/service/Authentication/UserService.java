@@ -1,4 +1,4 @@
-package com.medicare.backend.service.AuthServices;
+package com.medicare.backend.service.Authentication;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

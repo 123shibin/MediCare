@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.medicare.backend.service.AuthServices.CustomUserDetailsService;
+import com.medicare.backend.service.Authentication.CustomUserDetailsService;
 
 import java.io.IOException;
 

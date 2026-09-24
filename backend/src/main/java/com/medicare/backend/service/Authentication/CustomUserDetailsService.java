@@ -1,4 +1,4 @@
-package com.medicare.backend.service.AuthServices;
+package com.medicare.backend.service.Authentication;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

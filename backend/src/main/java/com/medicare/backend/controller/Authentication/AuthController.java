@@ -11,7 +11,7 @@ import com.medicare.backend.dto.Authdto.LoginRequest;
 import com.medicare.backend.dto.Authdto.LoginResponse;
 import com.medicare.backend.dto.Authdto.RegisterRequest;
 import com.medicare.backend.security.JwtUtil;
-import com.medicare.backend.service.AuthServices.UserService;
+import com.medicare.backend.service.Authentication.UserService;
 
 import org.springframework.security.authentication.AuthenticationManager;
 
