@@ -53,7 +53,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
 
                 // Login and registration don't need JWT
-                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/auth/login").permitAll()
 
                 // Everything else requires JWT authentication
                 .anyRequest().authenticated()

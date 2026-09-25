@@ -17,9 +17,6 @@ public class UserManagement {
     private String email;
 
     @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false)
     private String role;
 
     @Column(nullable = false)
@@ -28,11 +25,8 @@ public class UserManagement {
     @Column(nullable = false)
     private Integer patients = 0;
 
-    // Default constructor
     public UserManagement() {
     }
-
-    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -56,14 +50,6 @@ public class UserManagement {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getRole() {

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.medicare.backend.models.register.User;
+import com.medicare.backend.models.Authentication.User;
 
 
 public class CustomUserDetail implements UserDetails {
