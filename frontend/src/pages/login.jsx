@@ -16,13 +16,12 @@ export default function Login() {
   const navigate = useNavigate();
 
   const loginMutation = useLogin();
-  const registerMutation = useRegister();
+  // const registerMutation = useRegister();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (isLogin) {
-      loginMutation.mutate(
+    loginMutation.mutate(
         {
           email: formData.email,
           password: formData.password,
@@ -37,28 +36,31 @@ export default function Login() {
           },
         }
       );
-    } else {
-      if (formData.password !== formData.confirmPassword) {
-        return alert("Passwords do not match ❌");
-      }
 
-      registerMutation.mutate(
-        {
-          fullname: formData.fullName,
-          email: formData.email,
-          password: formData.password,
-        },
-        {
-          onSuccess: () => {
-            alert("Registration successful ✅");
-            setIsLogin(true);
-          },
-          onError: () => {
-            alert("Registration failed ❌");
-          },
-        }
-      );
-    }
+    // if (isLogin) {
+      
+    // } else {
+    //   if (formData.password !== formData.confirmPassword) {
+    //     return alert("Passwords do not match ❌");
+    //   }
+
+    //   registerMutation.mutate(
+    //     {
+    //       fullname: formData.fullName,
+    //       email: formData.email,
+    //       password: formData.password,
+    //     },
+    //     {
+    //       onSuccess: () => {
+    //         alert("Registration successful ✅");
+    //         setIsLogin(true);
+    //       },
+    //       onError: () => {
+    //         alert("Registration failed ❌");
+    //       },
+    //     }
+    //   );
+    // }
   };
 
   const handleInputChange = (e) => {
@@ -85,18 +87,9 @@ export default function Login() {
       <div className="auth-form-section">
         <div className="auth-form-wrapper">
 
-          {/* <div className="auth-header">
-            <h1 className="auth-title">MediCare Platform</h1>
-            <p className="auth-description">
-              {isLogin
-                ? "Welcome back. Sign in to continue."
-                : "Create your account to get started."}
-            </p>
-          </div> */}
-
           <form onSubmit={handleSubmit} className="auth-form">
 
-            {!isLogin && (
+            {/* {!isLogin && (
               <div className="form-group">
                 <label className="form-label">Full Name</label>
                 <input
@@ -108,7 +101,7 @@ export default function Login() {
                   required
                 />
               </div>
-            )}
+            )} */}
 
             <div className="form-group">
               <label className="form-label">Email Address</label>
@@ -134,7 +127,7 @@ export default function Login() {
               />
             </div>
 
-            {!isLogin && (
+            {/* {!isLogin && (
               <div className="form-group">
                 <label className="form-label">Confirm Password</label>
                 <input
@@ -146,14 +139,14 @@ export default function Login() {
                   required
                 />
               </div>
-            )}
+            )} */}
 
             <button type="submit" className="submit-button">
               {isLogin ? "Sign In" : "Create Account"}
             </button>
           </form>
 
-          <div className="auth-toggle">
+          {/* <div className="auth-toggle">
             <p className="toggle-text">
               {isLogin
                 ? "Don't have an account?"
@@ -165,7 +158,7 @@ export default function Login() {
                 {isLogin ? "Sign up" : "Sign in"}
               </button>
             </p>
-          </div>
+          </div> */}
 
         </div>
       </div>
