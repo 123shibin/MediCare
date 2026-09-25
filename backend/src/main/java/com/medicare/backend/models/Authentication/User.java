@@ -13,14 +13,15 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
     private String fullname;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
     private String accountType;
+
+    @Column(nullable = false)
+    private boolean mustChangePassword = false;
 
     public User() {
     }
@@ -63,5 +64,13 @@ public class User {
 
     public void setAccountType(String accountType) {
         this.accountType = accountType;
+    }
+
+    public boolean isMustChangePassword() {
+        return mustChangePassword;
+    }
+
+    public void setMustChangePassword(boolean mustChangePassword) {
+        this.mustChangePassword = mustChangePassword;
     }
 }

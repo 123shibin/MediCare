@@ -1,12 +1,13 @@
 package com.medicare.backend.dto.userdto;
 
-public class AddUserRequest {
+public class UserManagementRequest {
+
     private String name;
     private String email;
     private String role;
     private String status;
 
-    public AddUserRequest() {
+    public UserManagementRequest() {
     }
 
     public String getName() {
