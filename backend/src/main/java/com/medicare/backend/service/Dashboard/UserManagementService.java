@@ -1,39 +1,99 @@
 package com.medicare.backend.service.Dashboard;
 
-import com.medicare.backend.dto.userdto.AddUserRequest;
-import com.medicare.backend.models.dashboard.UserManagement;
-import com.medicare.backend.repository.Dashboard.UserManagementRepository;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.medicare.backend.dto.userdto.UserManagementRequest;
+import com.medicare.backend.models.Authentication.User;
+import com.medicare.backend.models.dashboard.UserManagement;
+import com.medicare.backend.repository.Authentication.UserRepository;
+import com.medicare.backend.repository.Dashboard.UserManagementRepository;
+import com.medicare.backend.security.TemporaryPasswordGenerator;
 
 @Service
 public class UserManagementService {
 
-    private final UserManagementRepository userRepository;
+    private final UserManagementRepository userManagementRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final TemporaryPasswordGenerator passwordGenerator;
 
-    public UserManagementService(UserManagementRepository userRepository) {
+    public UserManagementService(
+            UserManagementRepository userManagementRepository,
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder,
+            TemporaryPasswordGenerator passwordGenerator) {
+
+        this.userManagementRepository = userManagementRepository;
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.passwordGenerator = passwordGenerator;
     }
 
-    public UserManagement addUser(AddUserRequest request) {
+    @Transactional
+    public String createStaff(UserManagementRequest request) {
 
-        // Check duplicate email
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("User with this email already exists");
+        // Check whether email already exists
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new RuntimeException(
+                "An account with this email already exists"
+            );
         }
 
-        // Create User entity
-        UserManagement user = new UserManagement();
+        if (userManagementRepository
+                .findByEmail(request.getEmail())
+                .isPresent()) {
 
-        user.setName(request.getName());
+            throw new RuntimeException(
+                "A staff member with this email already exists"
+            );
+        }
+
+        // Generate temporary password
+        String temporaryPassword =
+                passwordGenerator.generate();
+
+        // -----------------------------
+        // Save authentication account
+        // -----------------------------
+
+        User user = new User();
+
         user.setEmail(request.getEmail());
-        user.setRole(request.getRole());
-        user.setStatus(request.getStatus());
+        user.setFullname(request.getName());
 
-        // New user has no patients initially
-        user.setPatients(0);
+        // Store ONLY encrypted password
+        user.setPassword(
+            passwordEncoder.encode(temporaryPassword)
+        );
 
-        // Save into database
-        return userRepository.save(user);
+        user.setAccountType("STAFF");
+
+        // Force password change on first login
+        user.setMustChangePassword(true);
+
+        userRepository.save(user);
+
+
+        // -----------------------------
+        // Save staff management record
+        // -----------------------------
+
+        UserManagement staff = new UserManagement();
+
+        staff.setName(request.getName());
+        staff.setEmail(request.getEmail());
+        staff.setRole(request.getRole());
+        staff.setStatus(request.getStatus());
+        staff.setPatients(0);
+
+        userManagementRepository.save(staff);
+
+
+        // Return temporary password
+        // In production this should be sent by email.
+        return temporaryPassword;
     }
 }

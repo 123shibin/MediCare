@@ -5,9 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserManagementRepository extends JpaRepository<UserManagement, Long> {
-
-    boolean existsByEmail(String email);
+public interface UserManagementRepository
+        extends JpaRepository<UserManagement, Long> {
 
     Optional<UserManagement> findByEmail(String email);
 }
