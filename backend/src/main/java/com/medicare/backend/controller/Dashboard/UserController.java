@@ -1,31 +1,58 @@
 package com.medicare.backend.controller.Dashboard;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import com.medicare.backend.dto.userdto.AddUserRequest;
-import com.medicare.backend.models.dashboard.UserManagement;
+import com.medicare.backend.dto.userdto.UserManagementRequest;
 import com.medicare.backend.service.Dashboard.UserManagementService;
 
-import lombok.RequiredArgsConstructor;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-@RequiredArgsConstructor 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user-management")
 public class UserController {
-    public final UserManagementService userService;
-    @PostMapping("/adduser")
-    public ResponseEntity<?> addUser(@RequestBody AddUserRequest request) {
-        UserManagement createdUser = userService.addUser(request);
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(createdUser);
+    private final UserManagementService userManagementService;
+
+    public UserController(
+            UserManagementService userManagementService) {
+
+        this.userManagementService = userManagementService;
     }
-    
+
+    @PostMapping
+    public ResponseEntity<?> createUser(
+            @RequestBody UserManagementRequest request) {
+
+        try {
+
+            String temporaryPassword =
+                    userManagementService.createStaff(request);
+
+            Map<String, Object> response = new HashMap<>();
+
+            response.put("message",
+                    "Staff account created successfully");
+
+            response.put("email",
+                    request.getEmail());
+
+            // For development/testing.
+            // Later send this through email instead.
+            response.put("temporaryPassword",
+                    temporaryPassword);
+
+            return ResponseEntity.ok(response);
+
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of(
+                        "message",
+                        e.getMessage()
+                    ));
+        }
+    }
 }
