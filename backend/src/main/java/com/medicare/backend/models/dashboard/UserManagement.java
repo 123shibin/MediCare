@@ -17,6 +17,9 @@ public class UserManagement {
     private String email;
 
     @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
     private String role;
 
     @Column(nullable = false)
@@ -24,6 +27,9 @@ public class UserManagement {
 
     @Column(nullable = false)
     private Integer patients = 0;
+
+    @Column(nullable = false)
+    private boolean mustChangePassword = true;
 
     public UserManagement() {
     }
@@ -52,6 +58,14 @@ public class UserManagement {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getRole() {
         return role;
     }
@@ -74,5 +88,13 @@ public class UserManagement {
 
     public void setPatients(Integer patients) {
         this.patients = patients;
+    }
+
+    public boolean isMustChangePassword() {
+        return mustChangePassword;
+    }
+
+    public void setMustChangePassword(boolean mustChangePassword) {
+        this.mustChangePassword = mustChangePassword;
     }
 }
