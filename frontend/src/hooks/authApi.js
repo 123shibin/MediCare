@@ -3,7 +3,9 @@ import api from "../services/api";
 import { useDispatch } from "react-redux";
 import { loginSuccess, logout } from "../features/auth/authSlice";
 
-// ✅ LOGIN
+// ======================================================
+// LOGIN
+// ======================================================
 export const useLogin = () => {
   const dispatch = useDispatch();
 
@@ -16,7 +18,7 @@ export const useLogin = () => {
     onSuccess: (data) => {
       const token = data.accessToken;
 
-      // ✅ Only Redux handles storage
+      // Redux handles authentication storage
       dispatch(loginSuccess(token));
 
       console.log("Login successful ✅");
@@ -28,7 +30,10 @@ export const useLogin = () => {
   });
 };
 
-// ✅ REGISTER
+
+// ======================================================
+// REGISTER
+// ======================================================
 export const useRegister = () => {
   return useMutation({
     mutationFn: async (userData) => {
@@ -38,7 +43,46 @@ export const useRegister = () => {
   });
 };
 
-// ✅ LOGOUT
+
+// ======================================================
+// CREATE STAFF USER
+// ======================================================
+export const useCreateStaff = () => {
+  return useMutation({
+    mutationFn: async (userData) => {
+      const response = await api.post(
+        "/api/user-management",
+        userData
+      );
+
+      return response.data;
+    },
+
+    onSuccess: (data) => {
+      console.log("Staff account created successfully ✅");
+      console.log("Staff email:", data.email);
+
+      // Development only:
+      console.log(
+        "Temporary password:",
+        data.temporaryPassword
+      );
+    },
+
+    onError: (error) => {
+      console.error(
+        "Staff creation failed:",
+        error.response?.data?.message ||
+        error.message
+      );
+    },
+  });
+};
+
+
+// ======================================================
+// LOGOUT
+// ======================================================
 export const useLogout = () => {
   const dispatch = useDispatch();
 
