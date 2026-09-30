@@ -52,14 +52,17 @@ public class SecurityConfig {
 
             .authorizeHttpRequests(auth -> auth
 
-                // Login and registration don't need JWT
+                // Login does not require JWT
                 .requestMatchers("/auth/login").permitAll()
 
-                // Everything else requires JWT authentication
+                // Only ADMIN can manage staff
+                .requestMatchers("/api/user-management/**")
+                .hasRole("ADMIN")
+
+                // Everything else requires authentication
                 .anyRequest().authenticated()
             )
 
-            // Run your JWT filter before Spring's authentication filter
             .addFilterBefore(
                 jwtAuthFilter,
                 UsernamePasswordAuthenticationFilter.class
