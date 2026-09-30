@@ -30,7 +30,7 @@ import { Badge } from "../../components/badge";
 import {
   useStaffUsers,
   useCreateStaff,
-} from "../../api/userManagementApi";
+} from "../../hooks/userManagementApi";
 
 import { useQueryClient } from "@tanstack/react-query";
 
