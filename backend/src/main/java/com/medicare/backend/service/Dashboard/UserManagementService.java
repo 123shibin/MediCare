@@ -1,15 +1,13 @@
 package com.medicare.backend.service.Dashboard;
 
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.medicare.backend.dto.userdto.UserManagementRequest;
-import com.medicare.backend.models.Authentication.User;
-import com.medicare.backend.models.dashboard.UserManagement;
 import com.medicare.backend.repository.Authentication.UserRepository;
 import com.medicare.backend.repository.Dashboard.UserManagementRepository;
+import com.medicare.backend.models.dashboard.UserManagement;
 import com.medicare.backend.security.TemporaryPasswordGenerator;
 
 @Service
@@ -32,15 +30,27 @@ public class UserManagementService {
         this.passwordGenerator = passwordGenerator;
     }
 
+
     @Transactional
     public String createStaff(UserManagementRequest request) {
 
-        // Check whether email already exists
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+        // ============================================
+        // 1. CHECK ADMIN USERS TABLE
+        // ============================================
+
+        if (userRepository
+                .findByEmail(request.getEmail())
+                .isPresent()) {
+
             throw new RuntimeException(
                 "An account with this email already exists"
             );
         }
+
+
+        // ============================================
+        // 2. CHECK STAFF TABLE
+        // ============================================
 
         if (userManagementRepository
                 .findByEmail(request.getEmail())
@@ -51,35 +61,18 @@ public class UserManagementService {
             );
         }
 
-        // Generate temporary password
+
+        // ============================================
+        // 3. GENERATE TEMPORARY PASSWORD
+        // ============================================
+
         String temporaryPassword =
                 passwordGenerator.generate();
 
-        // -----------------------------
-        // Save authentication account
-        // -----------------------------
 
-        User user = new User();
-
-        user.setEmail(request.getEmail());
-        user.setFullname(request.getName());
-
-        // Store ONLY encrypted password
-        user.setPassword(
-            passwordEncoder.encode(temporaryPassword)
-        );
-
-        user.setAccountType("STAFF");
-
-        // Force password change on first login
-        user.setMustChangePassword(true);
-
-        userRepository.save(user);
-
-
-        // -----------------------------
-        // Save staff management record
-        // -----------------------------
+        // ============================================
+        // 4. CREATE STAFF ACCOUNT
+        // ============================================
 
         UserManagement staff = new UserManagement();
 
@@ -89,11 +82,37 @@ public class UserManagementService {
         staff.setStatus(request.getStatus());
         staff.setPatients(0);
 
+
+        // ============================================
+        // 5. ENCRYPT PASSWORD
+        // ============================================
+
+        staff.setPassword(
+            passwordEncoder.encode(temporaryPassword)
+        );
+
+
+        // ============================================
+        // 6. FORCE PASSWORD CHANGE
+        // ============================================
+
+        staff.setMustChangePassword(true);
+
+
+        // ============================================
+        // 7. SAVE STAFF
+        // ============================================
+
         userManagementRepository.save(staff);
 
 
-        // Return temporary password
-        // In production this should be sent by email.
+        // ============================================
+        // 8. RETURN TEMPORARY PASSWORD
+        // ============================================
+
+        // Development/testing for now.
+        // Later this will be emailed to the staff member.
+
         return temporaryPassword;
     }
 }
