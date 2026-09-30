@@ -45,42 +45,6 @@ export const useRegister = () => {
 
 
 // ======================================================
-// CREATE STAFF USER
-// ======================================================
-export const useCreateStaff = () => {
-  return useMutation({
-    mutationFn: async (userData) => {
-      const response = await api.post(
-        "/api/user-management",
-        userData
-      );
-
-      return response.data;
-    },
-
-    onSuccess: (data) => {
-      console.log("Staff account created successfully ✅");
-      console.log("Staff email:", data.email);
-
-      // Development only:
-      console.log(
-        "Temporary password:",
-        data.temporaryPassword
-      );
-    },
-
-    onError: (error) => {
-      console.error(
-        "Staff creation failed:",
-        error.response?.data?.message ||
-        error.message
-      );
-    },
-  });
-};
-
-
-// ======================================================
 // LOGOUT
 // ======================================================
 export const useLogout = () => {
