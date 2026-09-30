@@ -1,13 +1,16 @@
 package com.medicare.backend.service.Dashboard;
 
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.medicare.backend.dto.userdto.UserManagementRequest;
+import com.medicare.backend.dto.userdto.UserManagementResponse;
+import com.medicare.backend.models.dashboard.UserManagement;
 import com.medicare.backend.repository.Authentication.UserRepository;
 import com.medicare.backend.repository.Dashboard.UserManagementRepository;
-import com.medicare.backend.models.dashboard.UserManagement;
 import com.medicare.backend.security.TemporaryPasswordGenerator;
 
 @Service
@@ -17,6 +20,7 @@ public class UserManagementService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final TemporaryPasswordGenerator passwordGenerator;
+
 
     public UserManagementService(
             UserManagementRepository userManagementRepository,
@@ -31,12 +35,18 @@ public class UserManagementService {
     }
 
 
-    @Transactional
-    public String createStaff(UserManagementRequest request) {
+    // ======================================================
+    // CREATE STAFF
+    // ======================================================
 
-        // ============================================
-        // 1. CHECK ADMIN USERS TABLE
-        // ============================================
+    @Transactional
+    public String createStaff(
+            UserManagementRequest request) {
+
+
+        // ----------------------------------------------
+        // Check admin users table
+        // ----------------------------------------------
 
         if (userRepository
                 .findByEmail(request.getEmail())
@@ -48,9 +58,9 @@ public class UserManagementService {
         }
 
 
-        // ============================================
-        // 2. CHECK STAFF TABLE
-        // ============================================
+        // ----------------------------------------------
+        // Check staff table
+        // ----------------------------------------------
 
         if (userManagementRepository
                 .findByEmail(request.getEmail())
@@ -62,19 +72,20 @@ public class UserManagementService {
         }
 
 
-        // ============================================
-        // 3. GENERATE TEMPORARY PASSWORD
-        // ============================================
+        // ----------------------------------------------
+        // Generate temporary password
+        // ----------------------------------------------
 
         String temporaryPassword =
                 passwordGenerator.generate();
 
 
-        // ============================================
-        // 4. CREATE STAFF ACCOUNT
-        // ============================================
+        // ----------------------------------------------
+        // Create staff
+        // ----------------------------------------------
 
-        UserManagement staff = new UserManagement();
+        UserManagement staff =
+                new UserManagement();
 
         staff.setName(request.getName());
         staff.setEmail(request.getEmail());
@@ -83,36 +94,73 @@ public class UserManagementService {
         staff.setPatients(0);
 
 
-        // ============================================
-        // 5. ENCRYPT PASSWORD
-        // ============================================
+        // ----------------------------------------------
+        // Encrypt password
+        // ----------------------------------------------
 
         staff.setPassword(
-            passwordEncoder.encode(temporaryPassword)
+            passwordEncoder.encode(
+                temporaryPassword
+            )
         );
 
 
-        // ============================================
-        // 6. FORCE PASSWORD CHANGE
-        // ============================================
+        // ----------------------------------------------
+        // Force password change
+        // ----------------------------------------------
 
         staff.setMustChangePassword(true);
 
 
-        // ============================================
-        // 7. SAVE STAFF
-        // ============================================
+        // ----------------------------------------------
+        // Save
+        // ----------------------------------------------
 
         userManagementRepository.save(staff);
 
 
-        // ============================================
-        // 8. RETURN TEMPORARY PASSWORD
-        // ============================================
-
-        // Development/testing for now.
-        // Later this will be emailed to the staff member.
+        // ----------------------------------------------
+        // Temporary development return
+        // ----------------------------------------------
 
         return temporaryPassword;
+    }
+
+
+    // ======================================================
+    // GET ALL STAFF
+    // ======================================================
+
+    public List<UserManagementResponse> getAllStaff() {
+
+        return userManagementRepository
+                .findAll()
+                .stream()
+                .map(this::convertToResponse)
+                .toList();
+    }
+
+
+    // ======================================================
+    // CONVERT ENTITY → RESPONSE DTO
+    // ======================================================
+
+    private UserManagementResponse convertToResponse(
+            UserManagement staff) {
+
+        return new UserManagementResponse(
+
+            staff.getId(),
+
+            staff.getName(),
+
+            staff.getEmail(),
+
+            staff.getRole(),
+
+            staff.getStatus(),
+
+            staff.getPatients()
+        );
     }
 }
