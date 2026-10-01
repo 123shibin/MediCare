@@ -43,6 +43,17 @@ export const useRegister = () => {
   });
 };
 
+// ======================================================
+// CHANGE PASSWORD
+// ======================================================
+export const useChangePassword = () => {
+  return useMutation({
+    mutationFn: async (passwordData) => {
+      const response = await api.post("/auth/change-password", passwordData);
+      return response.data;
+    },
+  });
+};
 
 // ======================================================
 // LOGOUT

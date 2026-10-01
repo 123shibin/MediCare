@@ -2,13 +2,14 @@ import {Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import Login from "./pages/login.jsx";
 import Dashboard from "./pages/AdminDashboard.jsx";
+import ChangePassword from "./pages/ChangePassword.jsx";
 
 function App() {
   return (
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} /> 
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/dashboard" element={<Dashboard />} />  */}
+        <Route path="/change-password" element={<ChangePassword />} />
         
         {/* Add more routes here */}
         <Route

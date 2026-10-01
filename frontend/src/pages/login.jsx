@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/auth.css";
-import { useLogin, useRegister } from "../hooks/authApi";
+import { useLogin } from "../hooks/authApi";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
