@@ -25,15 +25,6 @@ export default function Login() {
         {
           email: formData.email,
           password: formData.password,
-        },
-        {
-          onSuccess: () => {
-            alert("Login successful ✅");
-            navigate("/dashboard");
-          },
-          onError: () => {
-            alert("Login failed ❌");
-          },
         }
       );
 

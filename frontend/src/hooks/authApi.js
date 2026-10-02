@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../services/api";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { loginSuccess, logout } from "../features/auth/authSlice";
 
 // ======================================================
@@ -8,6 +9,7 @@ import { loginSuccess, logout } from "../features/auth/authSlice";
 // ======================================================
 export const useLogin = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: async (credentials) => {
@@ -21,11 +23,17 @@ export const useLogin = () => {
       // Redux handles authentication storage
       dispatch(loginSuccess(token));
 
-      console.log("Login successful ✅");
+      if (data.mustChangePassword === true) {
+
+        navigate("/change-password");
+
+        return;
+      }
+
     },
 
     onError: (error) => {
-      console.error("Login failed:", error);
+      alert.error("Login failed:", error);
     },
   });
 };
