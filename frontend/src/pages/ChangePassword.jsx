@@ -127,9 +127,7 @@ export default function ChangePassword() {
               className="submit-button"
               disabled={loading}
             >
-              {loading
-                ? "Changing Password..."
-                : "Change Password"}
+              {loading? "Changing Password...": "Change Password"}
             </button>
 
           </form>
