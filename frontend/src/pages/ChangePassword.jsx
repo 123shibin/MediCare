@@ -27,7 +27,7 @@ export default function ChangePassword() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.newPassword !== formData.confirmPassword) {
-      return setError("Passwords do not match ❌");
+      return alert("Passwords do not match ❌");
     }
 
     changePasswordMutation.mutate(

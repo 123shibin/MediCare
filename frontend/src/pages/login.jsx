@@ -35,7 +35,7 @@ export default function Login() {
         }
 
         alert("Login successful ✅");
-        navigate("/dashboard");
+        navigate("/staff-dashboard");
       },
 
       onError: () => {
