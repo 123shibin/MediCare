@@ -24,8 +24,11 @@ export default function ChangePassword() {
     setError("");
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    if (formData.newPassword !== formData.confirmPassword) {
+      return setError("Passwords do not match ❌");
+    }
 
     changePasswordMutation.mutate(
       {
