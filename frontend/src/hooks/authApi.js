@@ -23,13 +23,6 @@ export const useLogin = () => {
       // Redux handles authentication storage
       dispatch(loginSuccess(token));
 
-      if (data.mustChangePassword === true) {
-
-        navigate("/change-password");
-
-        return;
-      }
-
     },
 
     onError: (error) => {

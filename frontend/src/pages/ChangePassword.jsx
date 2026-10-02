@@ -37,7 +37,7 @@ export default function ChangePassword() {
       {
         onSuccess: () => {
           alert("Password changed successfully ✅");
-          navigate("/change-password");
+          navigate("/login");
         },
         onError: (error) => {
           alert.error("Password change failed:", error);

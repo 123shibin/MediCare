@@ -19,15 +19,31 @@ export default function Login() {
   // const registerMutation = useRegister();
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    loginMutation.mutate(
-        {
-          email: formData.email,
-          password: formData.password,
+  loginMutation.mutate(
+    {
+      email: formData.email,
+      password: formData.password,
+    },
+    {
+      onSuccess: (data) => {
+
+        if (data.mustChangePassword === true) {
+          navigate("/change-password");
+          return;
         }
-      );
 
+        alert("Login successful ✅");
+        navigate("/dashboard");
+      },
+
+      onError: () => {
+        alert("Login failed ❌");
+      },
+    }
+  );
+};
     // if (isLogin) {
       
     // } else {
@@ -52,7 +68,7 @@ export default function Login() {
     //     }
     //   );
     // }
-  };
+  
 
   const handleInputChange = (e) => {
     setFormData({
