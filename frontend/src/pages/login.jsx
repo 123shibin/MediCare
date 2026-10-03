@@ -27,19 +27,23 @@ export default function Login() {
       password: formData.password,
     },
     {
-      onSuccess: (data) => {
+          onSuccess: (data) => {
 
-        if (data.mustChangePassword === true) {
-          navigate("/change-password");
-          return;
-        }
-        if (data.role === "ADMIN") {
-          navigate("/dashboard");
-          return;
-        }
-        alert("Login successful ✅");
+      if (data.mustChangePassword === true) {
+
+        navigate("/change-password");
+        return;
+
+      } else if (data.role === "ADMIN") {
+
+        navigate("/dashboard");
+        return;
+
+      } else {
+
         navigate("/staff-dashboard");
-      },
+      }
+    },
 
       onError: () => {
         alert("Login failed ❌");
