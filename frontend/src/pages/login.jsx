@@ -33,7 +33,10 @@ export default function Login() {
           navigate("/change-password");
           return;
         }
-
+        if (data.role === "ADMIN") {
+          navigate("/dashboard");
+          return;
+        }
         alert("Login successful ✅");
         navigate("/staff-dashboard");
       },
