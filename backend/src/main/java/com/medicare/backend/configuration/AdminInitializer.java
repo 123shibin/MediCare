@@ -1,5 +1,6 @@
 package com.medicare.backend.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -8,14 +9,14 @@ import org.springframework.stereotype.Component;
 import com.medicare.backend.models.Authentication.User;
 import com.medicare.backend.repository.Authentication.UserRepository;
 
-import lombok.RequiredArgsConstructor;
 
 @Component
-@RequiredArgsConstructor
 public class AdminInitializer implements CommandLineRunner {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    @Autowired 
+    private UserRepository userRepository;
+    @Autowired 
+    private PasswordEncoder passwordEncoder;
 
     @Value("${app.admin.email}")
     private String adminEmail;

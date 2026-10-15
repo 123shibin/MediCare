@@ -2,10 +2,10 @@ package com.medicare.backend.service.Authentication;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
 
 import com.medicare.backend.dto.Authdto.LoginRequest;
 import com.medicare.backend.dto.Authdto.LoginResponse;
@@ -21,16 +21,16 @@ import com.medicare.backend.repository.Dashboard.UserManagementRepository;
 import com.medicare.backend.security.JwtUtil;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository repo;
-
-    private final UserManagementRepository userManagementRepository;
-
-    private final PasswordEncoder encoder;
-
-    private final JwtUtil jwtUtil;
+    @Autowired 
+    private UserRepository repo;
+    @Autowired
+    private UserManagementRepository userManagementRepository;
+    @Autowired
+    private PasswordEncoder encoder;
+    @Autowired
+    private JwtUtil jwtUtil;
 
 
     // =====================================================
