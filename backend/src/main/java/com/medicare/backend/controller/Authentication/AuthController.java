@@ -1,6 +1,5 @@
 package com.medicare.backend.controller.Authentication;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +12,14 @@ import com.medicare.backend.dto.Authdto.ChangePasswordRequest;
 
 import com.medicare.backend.service.Authentication.UserService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor 
 public class AuthController {
-    @Autowired 
-    private UserService userService;
+    
+    private final UserService userService;
 
     // =====================================================
     // LOGIN

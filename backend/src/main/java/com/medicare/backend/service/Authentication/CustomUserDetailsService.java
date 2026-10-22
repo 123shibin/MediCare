@@ -1,6 +1,5 @@
 package com.medicare.backend.service.Authentication;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,15 +12,17 @@ import com.medicare.backend.models.dashboard.UserManagement;
 import com.medicare.backend.repository.Authentication.UserRepository;
 import com.medicare.backend.repository.Dashboard.UserManagementRepository;
 
+import lombok.RequiredArgsConstructor;
 
 
+@RequiredArgsConstructor 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Autowired 
-    private UserRepository userRepository;
-    @Autowired
-    private UserManagementRepository userManagementRepository;
+     
+    private final UserRepository userRepository;
+    
+    private final UserManagementRepository userManagementRepository;
 
     @Override
 public UserDetails loadUserByUsername(String email)

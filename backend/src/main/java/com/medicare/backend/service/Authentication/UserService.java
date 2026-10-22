@@ -2,7 +2,6 @@ package com.medicare.backend.service.Authentication;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,17 +19,20 @@ import com.medicare.backend.repository.Dashboard.UserManagementRepository;
 
 import com.medicare.backend.security.JwtUtil;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor 
 @Service
 public class UserService {
 
-    @Autowired 
-    private UserRepository repo;
-    @Autowired
-    private UserManagementRepository userManagementRepository;
-    @Autowired
-    private PasswordEncoder encoder;
-    @Autowired
-    private JwtUtil jwtUtil;
+     
+    private final UserRepository repo;
+    
+    private final UserManagementRepository userManagementRepository;
+    
+    private final PasswordEncoder encoder;
+    
+    private final JwtUtil jwtUtil;
 
 
     // =====================================================
