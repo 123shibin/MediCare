@@ -25,8 +25,8 @@ export const useLogin = () => {
 
     },
 
-    onError: (error) => {
-      alert.error("Login failed:", error);
+        onError: (error) => {
+      alert(`Login failed: ${error.message || error}`);
     },
   });
 };
