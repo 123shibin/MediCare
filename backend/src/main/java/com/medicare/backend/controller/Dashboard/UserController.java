@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.medicare.backend.dto.userdto.UserManagementRequest;
 import com.medicare.backend.dto.userdto.UserManagementResponse;
 import com.medicare.backend.service.Dashboard.UserManagementService;
+import com.medicare.backend.service.Authentication.EmailService;
 
 
 @RestController
@@ -17,13 +18,15 @@ import com.medicare.backend.service.Dashboard.UserManagementService;
 public class UserController {
 
     private final UserManagementService userManagementService;
-
+    private final EmailService emailService;
 
     public UserController(
-            UserManagementService userManagementService) {
+            UserManagementService userManagementService,
+            EmailService emailService) {
 
         this.userManagementService =
                 userManagementService;
+        this.emailService = emailService;
     }
 
 
@@ -46,51 +49,50 @@ public class UserController {
     // CREATE STAFF
     // ======================================================
 
-    @PostMapping
-    public ResponseEntity<?> createUser(
-            @RequestBody UserManagementRequest request) {
+    
+@PostMapping
+public ResponseEntity<?> createUser(
+        @RequestBody UserManagementRequest request) {
 
-        try {
+    try {
 
-            String temporaryPassword =
-                    userManagementService
-                        .createStaff(request);
+        String temporaryPassword =
+                userManagementService.createStaff(request);
 
-
-            Map<String, Object> response =
-                    new HashMap<>();
-
-
-            response.put(
-                "message",
-                "Staff account created successfully"
-            );
-
-            response.put(
-                "email",
-                request.getEmail()
-            );
-
-
-            // DEVELOPMENT ONLY
-            response.put(
-                "temporaryPassword",
+        // Send temporary password to the newly created user's email
+        emailService.sendTemporaryPassword(
+                request.getEmail(),
                 temporaryPassword
-            );
+        );
 
+        Map<String, Object> response =
+                new HashMap<>();
 
-            return ResponseEntity.ok(response);
+        response.put(
+            "message",
+            "Staff account created and temporary password sent successfully"
+        );
 
-        } catch (RuntimeException e) {
+        response.put(
+            "email",
+            request.getEmail()
+        );
 
-            return ResponseEntity
-                    .badRequest()
-                    .body(
-                        Map.of(
-                            "message",
-                            e.getMessage()
-                        )
-                    );
-        }
+        // Do not return temporary password to frontend
+
+        return ResponseEntity.ok(response);
+
+    } catch (RuntimeException e) {
+
+        return ResponseEntity
+                .badRequest()
+                .body(
+                    Map.of(
+                        "message",
+                        e.getMessage()
+                    )
+                );
     }
+}
+
 }
