@@ -4,6 +4,16 @@
       "name": "jwt.secret",
       "type": "java.lang.String",
       "description": "Base64-encoded secret used to sign and verify JWT tokens."
+    },
+    {
+      "name": "app.admin.email",
+      "type": "java.lang.String",
+      "description": "Email address for the initial administrator account."
+    },
+    {
+      "name": "app.admin.password",
+      "type": "java.lang.String",
+      "description": "Password for the initial administrator account."
     }
   ]
 }
