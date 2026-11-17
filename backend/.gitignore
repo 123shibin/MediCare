@@ -1,4 +1,7 @@
+
 HELP.md
+
+# Maven
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -31,3 +34,20 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# NEW: Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# NEW: Generated Java files
+*.class
+*.jar
+*.war
+
+# NEW: Logs
+*.log
+
+# NEW: OS files
+.DS_Store
+Thumbs.db
