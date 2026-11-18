@@ -1,0 +1,24 @@
+
+services:
+  backend:
+    image: shibin123/medicare-backend:1.0
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    container_name: medicare-backend
+
+    ports:
+      - "8081:8081"
+
+    env_file:
+      - ./backend/.env
+
+    networks:
+      - medicare-net
+
+    restart: unless-stopped
+
+networks:
+  medicare-net:
+    external: true
