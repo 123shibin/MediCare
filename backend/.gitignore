@@ -51,3 +51,8 @@ build/
 # NEW: OS files
 .DS_Store
 Thumbs.db
+
+
+# Postman folders
+/.postman/
+/postman/
