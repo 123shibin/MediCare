@@ -1,7 +1,7 @@
 
 services:
   backend:
-    image: shibin123/medicare-backend:1.0
+    image: 123shibin/medicare-backend:1.0
     build:
       context: ./backend
       dockerfile: Dockerfile
