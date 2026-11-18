@@ -54,5 +54,6 @@ Thumbs.db
 
 
 # Postman folders
-/.postman/
-/postman/
+# Ignore Postman workspace folders
+/.postman/**
+/postman/**
