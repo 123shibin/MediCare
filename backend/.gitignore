@@ -52,8 +52,3 @@ build/
 .DS_Store
 Thumbs.db
 
-
-# Postman folders
-# Ignore Postman workspace folders
-/.postman/**
-/postman/**
