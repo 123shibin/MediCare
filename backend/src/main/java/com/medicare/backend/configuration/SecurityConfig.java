@@ -52,8 +52,11 @@ public class SecurityConfig {
 
             .authorizeHttpRequests(auth -> auth
 
-                // Login does not require JWT
-                .requestMatchers("/auth/login").permitAll()
+                // Public endpoints - no JWT required
+                .requestMatchers(
+                            "/auth/login",
+                            "/auth/resetpassword"
+                        ).permitAll()
 
                 // Only ADMIN can manage staff
                 .requestMatchers("/api/user-management/**")
