@@ -1,7 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../services/api";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { loginSuccess, logout } from "../features/auth/authSlice";
 
 // ======================================================
@@ -9,7 +8,6 @@ import { loginSuccess, logout } from "../features/auth/authSlice";
 // ======================================================
 export const useLogin = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: async (credentials) => {
@@ -54,6 +52,23 @@ export const useChangePassword = () => {
       return response.data;
     },
   });
+};
+
+// ======================================================
+// RESET PASSWORD
+// ======================================================
+
+export const useResetPassword = () => {
+    return useMutation({
+        mutationFn: async (emailData) => {
+            const response = await api.post(
+                "/auth/resetpassword",
+                emailData
+            );
+
+            return response.data;
+        }
+    });
 };
 
 // ======================================================

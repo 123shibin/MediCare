@@ -160,19 +160,11 @@ export default function Login() {
             </button>
           </form>
 
-          {/* <div className="auth-toggle">
+          <div className="auth-toggle">
             <p className="toggle-text">
-              {isLogin
-                ? "Don't have an account?"
-                : "Already have an account?"}{" "}
-              <button
-                onClick={() => setIsLogin(!isLogin)}
-                className="toggle-button"
-              >
-                {isLogin ? "Sign up" : "Sign in"}
-              </button>
+              Forgot your password? <a href="/reset-password">Reset it</a>
             </p>
-          </div> */}
+          </div>
 
         </div>
       </div>
