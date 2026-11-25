@@ -50,49 +50,49 @@ public class UserController {
     // ======================================================
 
     
-@PostMapping
-public ResponseEntity<?> createUser(
-        @RequestBody UserManagementRequest request) {
+    @PostMapping
+    public ResponseEntity<?> createUser(
+            @RequestBody UserManagementRequest request) {
 
-    try {
+        try {
 
-        String temporaryPassword =
-                userManagementService.createStaff(request);
+            String temporaryPassword =
+                    userManagementService.createStaff(request);
 
-        // Send temporary password to the newly created user's email
-        emailService.sendTemporaryPassword(
-                request.getEmail(),
-                temporaryPassword
-        );
+            // Send temporary password to the newly created user's email
+            emailService.sendTemporaryPassword(
+                    request.getEmail(),
+                    temporaryPassword
+            );
 
-        Map<String, Object> response =
-                new HashMap<>();
+            Map<String, Object> response =
+                    new HashMap<>();
 
-        response.put(
-            "message",
-            "Staff account created and temporary password sent successfully"
-        );
+            response.put(
+                "message",
+                "Staff account created and temporary password sent successfully"
+            );
 
-        response.put(
-            "email",
-            request.getEmail()
-        );
+            response.put(
+                "email",
+                request.getEmail()
+            );
 
-        // Do not return temporary password to frontend
+            // Do not return temporary password to frontend
 
-        return ResponseEntity.ok(response);
+            return ResponseEntity.ok(response);
 
-    } catch (RuntimeException e) {
+        } catch (RuntimeException e) {
 
-        return ResponseEntity
-                .badRequest()
-                .body(
-                    Map.of(
-                        "message",
-                        e.getMessage()
-                    )
-                );
+            return ResponseEntity
+                    .badRequest()
+                    .body(
+                        Map.of(
+                            "message",
+                            e.getMessage()
+                        )
+                    );
+        }
     }
-}
 
 }

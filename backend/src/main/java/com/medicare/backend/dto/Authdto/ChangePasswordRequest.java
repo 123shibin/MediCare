@@ -1,10 +1,20 @@
+
 package com.medicare.backend.dto.Authdto;
 
 public class ChangePasswordRequest {
 
+    private String email;
     private String newPassword;
 
     public ChangePasswordRequest() {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNewPassword() {

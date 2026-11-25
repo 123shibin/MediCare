@@ -10,6 +10,7 @@ import com.medicare.backend.dto.Authdto.LoginRequest;
 import com.medicare.backend.dto.Authdto.LoginResponse;
 import com.medicare.backend.dto.Authdto.RegisterRequest;
 import com.medicare.backend.dto.Authdto.ChangePasswordRequest;
+import com.medicare.backend.dto.Authdto.ChangePasswordResponse;
 
 import com.medicare.backend.models.Authentication.User;
 import com.medicare.backend.models.dashboard.UserManagement;
@@ -33,6 +34,8 @@ public class UserService {
     private final PasswordEncoder encoder;
     
     private final JwtUtil jwtUtil;
+
+    
 
 
     // =====================================================
@@ -209,4 +212,68 @@ public class UserService {
 
         userManagementRepository.save(staff);
     }
-}
+
+    // =====================================================
+    // RESET PASSWORD
+    // =====================================================
+
+    public ChangePasswordResponse resetPassword(
+            ChangePasswordRequest request) {
+
+        String email = request.getEmail();
+
+        // =================================================
+        // CHECK ADMIN TABLE
+        // =================================================
+
+        Optional<User> adminOptional =
+                repo.findByEmail(email);
+        
+        if (adminOptional.isPresent()) {
+
+            User admin = adminOptional.get();
+
+
+            String token =
+                    jwtUtil.generateToken(
+                        admin.getEmail(),
+                        "ADMIN"
+                    );
+
+
+            return new ChangePasswordResponse(
+                token,
+                "Password reset link sent to your email."
+            );
+        }
+
+        // =================================================
+        // CHECK STAFF TABLE
+        // =================================================
+
+        Optional<UserManagement> staffOptional =
+                userManagementRepository.findByEmail(email);
+
+
+        if (staffOptional.isPresent()) {
+
+            UserManagement staff = staffOptional.get();
+
+            String token =
+                    jwtUtil.generateToken(
+                        staff.getEmail(),
+                        staff.getRole()
+                    );
+
+            return new ChangePasswordResponse(
+                token,
+                "Password reset link sent to your email."
+            );
+        }
+
+        throw new RuntimeException(
+            "User not found"
+        );
+    }
+        
+} 
