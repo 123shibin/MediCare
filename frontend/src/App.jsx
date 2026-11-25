@@ -4,6 +4,7 @@ import Login from "./pages/login.jsx";
 import Dashboard from "./pages/AdminDashboard.jsx";
 import ChangePassword from "./pages/ChangePassword.jsx";
 import StaffDashboard from "./pages/StaffDashboard.jsx";
+import PassResetEmail from "./pages/PassResetEmail.jsx";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} /> 
         <Route path="/login" element={<Login />} />
         <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/reset-password" element={<PassResetEmail />} />
         
         {/* Add more routes here */}
         <Route

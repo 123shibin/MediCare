@@ -40,7 +40,7 @@ export default function ChangePassword() {
           navigate("/login");
         },
         onError: (error) => {
-          alert.error("Password change failed:", error);
+          
           setError(
             error.response?.data?.message ||
             "Failed to change password. Please try again."
