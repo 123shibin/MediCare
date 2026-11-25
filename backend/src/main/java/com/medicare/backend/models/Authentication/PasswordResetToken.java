@@ -13,7 +13,7 @@ public class PasswordResetToken {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "token", nullable = false, unique = true)
+    @Column(name = "token", nullable = false, unique = true, length = 64)
     private String token;
 
     @Column(name = "expiration_time")
