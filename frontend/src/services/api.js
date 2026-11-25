@@ -2,7 +2,7 @@ import axios from "axios";
 import { store } from "../app/store";
 import { logout } from "../features/auth/authSlice";
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: "http://localhost:8081",
   headers: {
     "Content-Type": "application/json",
@@ -35,4 +35,3 @@ api.interceptors.response.use(
 );
 
 
-export default api;
