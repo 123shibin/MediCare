@@ -4,11 +4,8 @@ package com.medicare.backend.service.Authentication;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class EmailService {
@@ -17,6 +14,9 @@ public class EmailService {
 
     @Value("${spring.mail.username}")
     private String senderEmail;
+
+    @Value("${app.frontend.url}")
+    private String frontendUrl;
 
     public EmailService(JavaMailSender mailSender) {
         this.mailSender = mailSender;
@@ -49,56 +49,51 @@ public class EmailService {
         mailSender.send(message);
     }
     
-    // =======================================================
-    // Send Reset Password Link Email       
-    // =======================================================
-    
-    
-public void sendResetPasswordLink(
-        String recipientEmail,
-        String resetLink) {
+    // =====================================================
+    // CREATE PASSWORD RESET LINK
+    // =====================================================
 
-    try {
-        MimeMessage message = mailSender.createMimeMessage();
+    public String createResetLink(String token) {
 
-        MimeMessageHelper helper =
-                new MimeMessageHelper(message, true, "UTF-8");
+        return frontendUrl
+                + "/change-password?token="
+                + token;
+    }
 
-        helper.setFrom(senderEmail);
-        helper.setTo(recipientEmail);
 
-        helper.setSubject("MediCare - Reset Your Password");
+    // =====================================================
+    // SEND PASSWORD RESET EMAIL
+    // =====================================================
 
-        String emailContent =
-                "<html>"
-                + "<body style='font-family: Arial, sans-serif;'>"
-                + "<h2>MediCare Password Reset</h2>"
-                + "<p>Hello,</p>"
-                + "<p>We received a request to reset your MediCare account password.</p>"
-                + "<p>Click the button below to reset your password:</p>"
+    public void sendResetPasswordLink(
+            String recipientEmail,
+            String resetLink) {
 
-                + "<a href='" + resetLink + "' "
-                + "style='background-color: #2563eb;"
-                + "color: white;"
-                + "padding: 12px 24px;"
-                + "text-decoration: none;"
-                + "border-radius: 6px;"
-                + "display: inline-block;'>"
-                + "Reset Password"
-                + "</a>"
+        SimpleMailMessage message =
+                new SimpleMailMessage();
 
-                + "<p>If you did not request this, please ignore this email.</p>"
-                + "<p>Regards,<br>MediCare Team</p>"
-                + "</body>"
-                + "</html>";
+        message.setFrom(senderEmail);
 
-        helper.setText(emailContent, true);
+        message.setTo(recipientEmail);
+
+        message.setSubject(
+                "MediCare - Password Reset Request"
+        );
+
+        message.setText(
+                "Hello,\n\n"
+                + "We received a request to reset your MediCare account password.\n\n"
+                + "Click the link below to reset your password:\n\n"
+                + resetLink
+                + "\n\n"
+                + "This link will expire in 15 minutes.\n\n"
+                + "If you did not request a password reset, "
+                + "please ignore this email.\n\n"
+                + "Regards,\n"
+                + "MediCare Support Team"
+        );
 
         mailSender.send(message);
-
-    } catch (MessagingException e) {
-        throw new RuntimeException("Failed to send reset password email", e);
     }
-}
 
 }
