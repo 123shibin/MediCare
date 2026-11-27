@@ -54,9 +54,11 @@ public class SecurityConfig {
 
                 // Public endpoints - no JWT required
                 .requestMatchers(
-                            "/auth/login",
-                            "/auth/resetpassword"
-                        ).permitAll()
+                                "/auth/login",
+                                "/auth/register",
+                                "/auth/resetpassword",
+                                "/auth/confirm-reset"
+                            ).permitAll()
 
                 // Only ADMIN can manage staff
                 .requestMatchers("/api/user-management/**")
