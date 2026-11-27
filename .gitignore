@@ -30,3 +30,4 @@ coverage/
 
 # Postman environment files
 postman/
+.postman/
