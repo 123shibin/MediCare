@@ -127,7 +127,7 @@ public class AuthController {
             return ResponseEntity.ok(
                 Map.of(
                     "message",
-                    "If the account exists, a password reset link will be sent."
+                    "Account does not exist or unable to send reset link."
                 )
             );
         }
